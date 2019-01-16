@@ -15,7 +15,7 @@ chrome.contextMenus.onClicked.addListener(function(info, tab) {
 		obtainBookmarks();
 	}
 });
-var arr, n, async_i, sign;
+var arr, n, async_i, stop;
 function obtainBookmarks(){
 	chrome.bookmarks.getTree(function(bookmarkItems){
 		arr = [], async_i = [];
