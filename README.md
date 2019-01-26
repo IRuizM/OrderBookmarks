@@ -9,4 +9,4 @@ Press "Shift+Ctrl+S"
 
 OR
 
-Right click on a web page to display contextual menu with option "Order bookmarks".
+Right click on a web page to display a contextual menu with the option "Order bookmarks".
