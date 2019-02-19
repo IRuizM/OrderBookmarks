@@ -1,20 +1,11 @@
 "use strict";
 
-chrome.runtime.onInstalled.addListener(function() {
-	chrome.contextMenus.create({
-		id: "order-bookmarks",
-		title: "Order bookmarks",
-		contexts: ["page"]
-	});
+chrome.browserAction.onClicked.addListener(function(){
+		obtainBookmarks();
 });
 chrome.commands.onCommand.addListener(function() {
         obtainBookmarks();
       });
-chrome.contextMenus.onClicked.addListener(function(info, tab) {
-	if (info.menuItemId == "order-bookmarks") {
-		obtainBookmarks();
-	}
-});
 var arr, n, async_i, stop;
 function obtainBookmarks(){
 	chrome.bookmarks.getTree(function(bookmarkItems){

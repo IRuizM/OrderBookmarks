@@ -4,16 +4,19 @@
   "version": "0.0.4",
   "description": "Organize your bookmarks with a keystroke.",
   "permissions": [
-	"contextMenus",
     "bookmarks"
 	],
   "background": {
     "scripts": ["background.js"]
 	},
-  "icons": { "16": "icon16.png",
-			 "32": "icon32.png",
-             "48": "icon48.png",
-             "128": "icon128.png" },
+  "icons": {"16": "icon16.png",
+			"32": "icon32.png",
+            "48": "icon48.png",
+            "128": "icon128.png" },
+  "browser_action": {
+			"default_title": "Order Bookmarks
+Click to organize bookmarks by type and name."
+        },
   "commands": {
         "toggle-feature-foo": {
         "suggested_key": {

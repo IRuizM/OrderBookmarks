@@ -1,12 +1,10 @@
 # OrderBookmarks
-Simple extension to sort browser bookmarks. Designed for Brave Browser, compatible with Chrome.
-
-Extension which adds an option to order bookmarks by name.
+Simple extension to sort browser bookmarks. Organizes bookmarks by (Folder - Bookmark) and from (A-Z).
+Designed for Brave Browser, compatible with Chrome.
 
 Usage:
-
-Press "Shift+Ctrl+S"
-
+Left-click the extension tooltip in the extension toolbar.
 OR
+Press "Shift+Ctrl+S".
 
-Right click on a web page to display contextual menu with option "Order bookmarks".
+
