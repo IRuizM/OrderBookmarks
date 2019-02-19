@@ -6,5 +6,3 @@ Usage:
 Left-click the extension tooltip in the extension toolbar.
 OR
 Press "Shift+Ctrl+S".
-
-
