@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Order Bookmarks",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "description": "Organize your bookmarks with a keystroke.",
   "permissions": [
     "bookmarks"
@@ -14,8 +14,7 @@
             "48": "icon48.png",
             "128": "icon128.png" },
   "browser_action": {
-			"default_title": "Order Bookmarks
-Click to organize bookmarks by type and name."
+			"default_title": "Order Bookmarks: Click to organize bookmarks by type and name."
         },
   "commands": {
         "toggle-feature-foo": {

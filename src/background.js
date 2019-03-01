@@ -1,42 +1,33 @@
 "use strict";
 
 chrome.browserAction.onClicked.addListener(function(){
-		obtainBookmarks();
-});
-chrome.commands.onCommand.addListener(function() {
-        obtainBookmarks();
-      });
-var arr, n, async_i, stop;
-function obtainBookmarks(){
+		getRoot();
+	});
+chrome.commands.onCommand.addListener(function(){
+        getRoot();
+    });
+function getRoot(){
 	chrome.bookmarks.getTree(function(bookmarkItems){
-		arr = [], async_i = [];
-		n = 0;
-		stop = true;
-		sortBookmarks(bookmarkItems);
+		var arr = bookmarkItems[0].children[0];
+		sortBookmarks(arr);
 	});
 }
-function sortBookmarks(bookmarkItems) {
-	var index = n;
-	n++;
-	if(stop){
-		stop = false;
-		arr[index] = bookmarkItems[0].children[0].children;
-	}
-	else{
-		arr[index] = bookmarkItems.children;
-	}
-	for(var i = 0; i < arr.length; i++){
-		if(isTreeNode(arr[index][i]))
-			if(!isBookmark(arr[index][i]))
-				if(arr[index][i].children.length > 0)
-					sortBookmarks(arr[index][i]);	
-		
-	}
-	arr[index].sort(function(a,b){ return (isBookmark(a) && !isBookmark(b))? 1 : (!isBookmark(a) && isBookmark(b)) ? -1 : (a.title.toLowerCase() > b.title.toLowerCase()) ? 1: ((b.title.toLowerCase() > a.title.toLowerCase()) ? -1 : 0);});
-	async_i[index] = 0;
-	chrome.bookmarks.move(arr[index][async_i[index]].id, {index :async_i[index]}, function(bookmarkItem){
-		onMoved(bookmarkItem, index);
+function sortBookmarks(node){
+	var	arr = node.children;
+	arr.sort(function(a,b){ return (isBookmark(a) && !isBookmark(b))? 1 : (!isBookmark(a) && isBookmark(b)) ? -1 : (a.title.toLowerCase() > b.title.toLowerCase()) ? 1: ((b.title.toLowerCase() > a.title.toLowerCase()) ? -1 : 0);});
+	var async_i = 0;
+	chrome.bookmarks.move(arr[async_i].id, {index :async_i}, function(bookmarkItem){
+		onMoved(bookmarkItem, arr, async_i);
 	});
+	getSubTrees(arr);
+}
+function getSubTrees(arr){
+	for(var i = 0; i < arr.length; i++){
+		if(isTreeNode(arr[i]))
+			if(!isBookmark(arr[i]))
+				if(arr[i].children.length > 0)
+					sortBookmarks(arr[i]);	
+	}
 }
 function isBookmark(item){
 	return 'url' in item;
@@ -44,11 +35,11 @@ function isBookmark(item){
 function isTreeNode(item){
 	return typeof item != "undefined";
 }
-function onMoved(bookmarkItem, index){
-	if(async_i[index] < arr[index].length-1){
-		async_i[index]++;
-		chrome.bookmarks.move(arr[index][async_i[index]].id, {index :async_i[index]}, function(newBookmarkItem){
-			onMoved(newBookmarkItem, index);
+function onMoved(bookmarkItem, arr, async_i){
+	if(async_i < arr.length-1){
+		async_i++;
+		chrome.bookmarks.move(arr[async_i].id, {index :async_i}, function(newBookmarkItem){
+			onMoved(newBookmarkItem, arr, async_i);
 		});
 	}
 }
